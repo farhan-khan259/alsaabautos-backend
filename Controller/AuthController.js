@@ -61,3 +61,23 @@ exports.getMe = catchAsync(async (req, res, next) => {
     }
   });
 });
+
+exports.updateDetails = catchAsync(async (req, res, next) => {
+  const fieldsToUpdate = {
+    username: req.body.username,
+    email: req.body.email,
+    language: req.body.language
+  };
+
+  const updatedUser = await User.findByIdAndUpdate(req.user.id, fieldsToUpdate, {
+    new: true,
+    runValidators: true
+  });
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      user: updatedUser
+    }
+  });
+});

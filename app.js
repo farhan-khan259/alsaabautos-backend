@@ -1,10 +1,14 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 const AppError = require('./utils/appError');
+
+// Serve static files for uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 const server = require('http').createServer(app);
 // initSocket(server);
@@ -26,13 +30,13 @@ app.use(`${apiVersion}/expenses`, expenseRouter);
 app.use(`${apiVersion}/payments`, paymentRouter);
 app.use(`${apiVersion}/reports`, reportRouter);
 
-app.get("/test", (req, res)=>{
-    res.status(200).send("test is working!")
+app.get("/test", (req, res) => {
+  res.status(200).send("test is working!")
 });
 
 // Error handling
 app.all('*', (req, res, next) => {
-    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
-  });
+  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
 
-module.exports = {app, server};
+module.exports = { app, server };
