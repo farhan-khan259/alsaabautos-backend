@@ -114,6 +114,8 @@ app.use(helmet({
 // CORS configuration for frontend
 const allowedOrigins = [
     'https://alsaabautos-frontend.onrender.com', // Your frontend on Render
+    'https://www.alsaabautos.site',      // Your custom domain
+    'https://alsaabautos.site',          // Also allow without www
     'http://localhost:3000', // React dev server
     'http://localhost:5173', // Vite dev server
     process.env.FRONTEND_URL // Optional: from environment variable
